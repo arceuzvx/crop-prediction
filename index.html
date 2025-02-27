@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Crop Prediction System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <h1>SmartCrop AI</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#predictions">Predictions</a></li>
+                        <li><a href="#arduino">Arduino</a></li>
+                        <li><a href="#settings">Settings</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section id="dashboard">
+            <h2>Sensor Dashboard</h2>
+            <p>Real-time readings from your farm's sensors</p>
+            
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Temperature</div>
+                        <div class="sensor-icon">
+                            <i class="fas fa-temperature-high"></i>
+                        </div>
+                    </div>
+                    <div class="sensor-value" id="temperature-value">26°C</div>
+                    <div class="sensor-status optimal">Optimal range</div>
+                    <div class="chart-container">
+                        <canvas id="temperature-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Humidity</div>
+                        <div class="sensor-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                    </div>
+                    <div class="sensor-value" id="humidity-value">65%</div>
+                    <div class="sensor-status warning">Slightly high</div>
+                    <div class="chart-container">
+                        <canvas id="humidity-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Soil Moisture</div>
+                        <div class="sensor-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                    </div>
+                    <div class="sensor-value" id="moisture-value">42%</div>
+                    <div class="sensor-status optimal">Good soil moisture</div>
+                    <div class="chart-container">
+                        <canvas id="moisture-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Light Intensity</div>
+                        <div class="sensor-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                    </div>
+                    <div class="sensor-value" id="light-value">856 lux</div>
+                    <div class="sensor-status optimal">Good light conditions</div>
+                    <div class="chart-container">
+                        <canvas id="light-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="predictions" class="prediction-section">
+            <h2>Crop Predictions</h2>
+            <p>AI-powered recommendations based on current conditions</p>
+            
+            <div class="prediction-card">
+                <div class="prediction-header">
+                    <div class="prediction-title">Recommended Crops</div>
+                    <button class="prediction-refresh" id="refresh-predictions">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="prediction-grid">
+                    <div class="crop-card recommended">
+                        <div class="crop-icon">🌽</div>
+                        <div class="crop-name">Corn</div>
+                        <div class="crop-confidence">96% match</div>
+                    </div>
+                    
+                    <div class="crop-card">
+                        <div class="crop-icon">🌾</div>
+                        <div class="crop-name">Wheat</div>
+                        <div class="crop-confidence">82% match</div>
+                    </div>
+                    
+                    <div class="crop-card">
+                        <div class="crop-icon">🥔</div>
+                        <div class="crop-name">Potato</div>
+                        <div class="crop-confidence">78% match</div>
+                    </div>
+                    
+                    <div class="crop-card">
+                        <div class="crop-icon">🍅</div>
+                        <div class="crop-name">Tomato</div>
+                        <div class="crop-confidence">65% match</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="prediction-card">
+                <div class="prediction-header">
+                    <div class="prediction-title">Environmental Analysis</div>
+                </div>
+                
+                <p><strong>Current Conditions:</strong> The current environmental conditions are suitable for warm-season crops. The temperature and light levels are optimal, while the humidity is slightly elevated but within acceptable ranges for most crops.</p>
+                
+                <p><strong>Recommendations:</strong> Consider planting corn as your primary crop given the current conditions. The AI model predicts a high yield potential based on the sensor readings. Regular monitoring of humidity levels is advised.</p>
+            </div>
+        </section>
+        
+        <section id="arduino" class="arduino-section">
+            <h2>Arduino Connection</h2>
+            <p>Status and configuration of your Arduino Uno</p>
+            
+            <div class="arduino-status">
+                <div class="arduino-indicator connected"></div>
+                <div class="arduino-message">Arduino Uno connected | Port: COM5 | Last update: 2 seconds ago</div>
+            </div>
+            
+            <div class="prediction-card">
+                <div class="prediction-header">
+                    <div class="prediction-title">Sensor Configuration</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Sampling Rate</label>
+                    <select class="form-select" id="sampling-rate" title="Select Sampling Rate">
+                        <option value="5">Every 5 seconds</option>
+                        <option value="30" selected>Every 30 seconds</option>
+                        <option value="60">Every 1 minute</option>
+                        <option value="300">Every 5 minutes</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Alert Thresholds</label>
+                    <div class="form-grid">
+                        <div>
+                            <label>Temperature (°C)</label>
+                            <div class="flex-gap">
+                                <input type="number" class="form-input" placeholder="Min" value="15">
+                                <input type="number" class="form-input" placeholder="Max" value="35">
+                            </div>
+                        </div>
+                        <div>
+                            <label>Humidity (%)</label>
+                            <div class="flex-gap">
+                                <input type="number" class="form-input" placeholder="Min" value="40">
+                                <input type="number" class="form-input" placeholder="Max" value="70">
+                            </div>
+                        </div>
+                        <div>
+                            <label>Soil Moisture (%)</label>
+                            <div class="flex-gap">
+                                <input type="number" class="form-input" placeholder="Min" value="30">
+                                <input type="number" class="form-input" placeholder="Max" value="60">
+                            </div>
+                        </div>
+                        <div>
+                            <label>Light (lux)</label>
+                            <div class="flex-gap">
+                                <input type="number" class="form-input" placeholder="Min" value="500">
+                                <input type="number" class="form-input" placeholder="Max" value="2000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="form-submit">Save Configuration</button>
+            </div>
+        </section>
+        
+        <section id="settings" class="settings-section">
+            <h2>AI Model Settings</h2>
+            <p>Configure the AI prediction model</p>
+            
+            <div class="settings-form">
+                <div class="form-group">
+                    <label class="form-label">Region</label>
+                    <select class="form-select" id="region" title="Select Region">
+                        <option value="north">Northern</option>
+                        <option value="central" selected>Central</option>
+                        <option value="south">Southern</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Soil Type</label>
+                    <select class="form-select" id="soil-type" title="Select Soil Type">
+                        <option value="sandy">Sandy</option>
+                        <option value="loamy" selected>Loamy</option>
+                        <option value="clay">Clay</option>
+                        <option value="silt">Silty</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Growing Season</label>
+                    <select class="form-select" id="season" title="Select Growing Season">
+                        <option value="spring">Spring</option>
+                        <option value="summer" selected>Summer</option>
+                        <option value="fall">Fall</option>
+                        <option value="winter">Winter</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Preferred Crops (Optional)</label>
+                    <input type="text" class="form-input" placeholder="e.g., corn, wheat, potato" value="corn, wheat">
+                </div>
+                
+                <button class="form-submit">Update AI Model</button>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>SmartCrop AI &copy; 2025 | Powered by Arduino & Artificial Intelligence</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
