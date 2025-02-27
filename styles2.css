@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --text-color: #212020;
+    --light-text: #2f2e2e;
+    --border-color: #ddd;
+    --background-color: rgba(255, 255, 255, 0.2);
+    --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('field.jpg') no-repeat center center/cover;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    z-index: 1;
+}
+
+.card {
+    background: var(--background-color);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+}
+
+h2 {
+    font-size: 24px;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+    border-radius: 50px;
+    background: #f5f5f5;
+    padding: 5px;
+}
+
+.tab-button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s;
+    color: var(--light-text);
+    border-radius: 50px;
+    z-index: 2;
+}
+
+.tab-button.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    position: absolute;
+    left: 15px;
+    color: var(--light-text);
+    font-size: 16px;
+}
+
+input {
+    width: 100%;
+    padding: 14px 14px 14px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+}
+
+.remember input {
+    width: auto;
+    margin-right: 5px;
+}
+
+.forgot {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.primary-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.primary-btn:hover {
+    background: var(--secondary-color);
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    color: var(--light-text);
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.separator span {
+    padding: 0 15px;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+}
+
+.social-btn {
+    background: #f5f5f5;
+    color: var(--text-color);
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.social-btn i {
+    margin-right: 8px;
+}
+
+.phone-btn:hover {
+    background: #e8e8e8;
+}
+
+.hidden {
+    display: none;
+}
+
+.password-info {
+    font-size: 12px;
+    color: var(--light-text);
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 5px;
+}
+
+.switch-option {
+    font-size: 14px;
+    color: var(--light-text);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.switch-option a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+}
