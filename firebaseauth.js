@@ -5,12 +5,12 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBoPaEYG9fklgLulXVOQlY7fkGOvYR5NEY",
-    authDomain: "crop-prediction-fbf5e.firebaseapp.com",
-    projectId: "crop-prediction-fbf5e",
-    storageBucket: "crop-prediction-fbf5e.firebasestorage.app",
-    messagingSenderId: "382689789443",
-    appId: "1:382689789443:web:485337a46c7819744a3036"
+    apiKey: "your_api_key",
+    authDomain: "crop-prediction",
+    projectId: "crop-prediction",
+    storageBucket: "crop-prediction",
+    messagingSenderId: "id",
+    appId: "id"
   };
 
 // Initialize Firebase
