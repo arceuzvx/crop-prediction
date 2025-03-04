@@ -121,14 +121,16 @@ nav ul li a:hover {
 }
 
 .sensor-value {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 10px 0;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #212529;
+    margin: 1rem 0;
 }
 
 .sensor-status {
-    font-size: 14px;
-    color: var(--gray);
+    color: #6c757d;
+    font-size: 0.8rem;
+    margin: 0.5rem 0;
 }
 
 .optimal {
@@ -228,36 +230,87 @@ nav ul li a:hover {
 }
 
 .arduino-section {
-    margin-top: 30px;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .arduino-status {
     display: flex;
     align-items: center;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 15px;
-    margin-top: 20px;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
 }
 
 .arduino-indicator {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    margin-right: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.connected {
-    background-color: var(--primary);
+.arduino-indicator.connected {
+    background-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
 }
 
-.disconnected {
-    background-color: var(--danger);
+.arduino-indicator.disconnected {
+    background-color: #dc3545;
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.5);
 }
 
 .arduino-message {
-    font-weight: 500;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.arduino-connect-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.arduino-connect-btn:hover {
+    background-color: #0056b3;
+}
+
+.arduino-instructions {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    border-radius: 4px;
+}
+
+.arduino-instructions h3 {
+    margin: 0 0 1rem 0;
+    color: #212529;
+}
+
+.arduino-instructions ol {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.arduino-instructions li {
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.arduino-instructions p {
+    margin: 1rem 0 0 0;
+    color: #6c757d;
+    font-size: 0.9rem;
 }
 
 .settings-section {
@@ -328,4 +381,27 @@ footer {
         margin-left: 0;
         margin-right: 20px;
     }
+}
+
+/* Environmental analysis styles */
+#environmental-analysis {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+#environmental-analysis p {
+    margin: 0.5rem 0;
+    color: #495057;
+}
+
+#environmental-analysis strong {
+    color: #212529;
+}
+
+/* Remove unused styles */
+.login-section,
+.auth-buttons,
+.user-profile {
+    display: none;
 }
