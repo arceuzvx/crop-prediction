@@ -1,84 +1,137 @@
-# SmartCrop AI: Smart Crop Prediction System
+# SmartCrop AI - Intelligent Farming Solutions
 
-SmartCrop AI is an IoT-based smart agriculture system that monitors environmental parameters and provides crop recommendations based on real-time sensor data. It integrates an Arduino Uno with multiple sensors, a web interface, and Firebase for user authentication and alert management.
-
-## Overview
-
-The system continuously measures:
-- **Temperature & Humidity:** Using a DHT11 sensor.
-- **Ambient Light:** With a BH1750 sensor.
-- **Soil Moisture:** Via a soil moisture sensor.
-
-These sensor readings are sent to Firebase and displayed in an interactive web dashboard that features real-time charts, crop prediction recommendations, and environmental alerts. The web interface also includes a login page, so users can create accounts and receive personalized alerts when conditions go outside the optimal ranges for crop growth.
+SmartCrop AI is an intelligent crop prediction system that combines Arduino-based sensor data with AI to provide optimal crop recommendations for farmers.
 
 ## Features
 
-- **Real-Time Sensor Dashboard:** Visualizes temperature, humidity, soil moisture, and light intensity using interactive charts.
-- **Crop Recommendations:** Provides AI-powered suggestions on which crops (e.g., corn, wheat, potato, etc.) are best suited to the current environmental conditions.
-- **Alert System:** Sends alerts when sensor values fall outside predefined thresholds.
-- **User Authentication:** Uses Firebase Authentication to allow users to register and log in, ensuring that alerts and data are personalized.
-- **Arduino Integration:** An Arduino Uno reads sensor data and uploads values to Firebase, triggering alerts based on set thresholds.
-- **Configurable Settings:** Users can adjust sampling rates, alert thresholds, and AI model settings through the web interface.
+- Real-time environmental monitoring (temperature, humidity, soil moisture, light intensity)
+- AI-powered crop recommendations
+- Interactive web dashboard
+- Arduino integration for sensor data collection
+- Modern, responsive user interface
 
-## Components
+## Prerequisites
 
-- **Hardware:**
-  - Arduino Uno
-  - DHT11 Temperature & Humidity Sensor
-  - BH1750 Light Sensor
+- Python 3.8 or higher
+- Arduino Uno or compatible board
+- Required sensors:
+  - DHT11/DHT22 (Temperature & Humidity)
   - Soil Moisture Sensor
-  - WiFi Module/Shield for Arduino (compatible with your WiFi library)
-  - Arduino connectors and jumper wires
-- **Software:**
-  - Arduino IDE
-  - Firebase Realtime Database & Authentication
-  - HTML, CSS, and JavaScript (Chart.js for charts)
-  - Required libraries: [FirebaseArduino](https://github.com/FirebaseExtended/firebase-arduino), [DHT Sensor Library](https://github.com/adafruit/DHT-sensor-library), [BH1750 Library](https://github.com/claws/BH1750)
+  - BH1750 Light Intensity Sensor
+- Google AI Studio API key
 
-## Setup Instructions
+## Hardware Setup
 
-### 1. Hardware Setup
+1. Connect the sensors to your Arduino:
+   - DHT sensor: Digital Pin 2
+   - Soil Moisture sensor: Analog Pin A0
+   - BH1750 Light sensor: I2C (SDA/SCL pins)
 
-- **Connect the Sensors:**
-  - **DHT11:** Connect the data pin to digital pin 2 on the Arduino.
-  - **BH1750:** Connect to the I2C bus (A4 for SDA, A5 for SCL on the UNO).
-  - **Soil Moisture Sensor:** Connect to analog pin A0.
-- **WiFi Module:** Ensure your Arduino is equipped with a compatible WiFi shield or module.
+2. Upload the `arduino_sensor_sketch.ino` to your Arduino board
 
-### 2. Arduino Code Configuration
+## Software Installation
 
-- Download and install the required Arduino libraries.
-- Replace the placeholder WiFi and Firebase credentials in the Arduino sketch with your own:
-  - **SSID & Password:** Your WiFi network credentials.
-  - **Firebase Host & Auth:** Your Firebase Realtime Database URL and secret.
-- Upload the Arduino code to your board. The code reads sensor values, maps the soil moisture reading to a percentage, checks values against thresholds, sends sensor data to Firebase, and issues alerts if needed.
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd smartcrop-ai
+```
 
-### 3. Firebase Setup
+2. Create and activate a virtual environment (recommended):
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-- **Realtime Database:** Create a Firebase project and configure a realtime database.
-- **Authentication:** Enable Firebase Authentication to allow user registration and login.
-- Update your project’s Firebase rules as needed to secure the data.
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-### 4. Web Interface
+4. Set up environment variables:
+   - Create a `.env` file in the project root
+   - Add your Google AI Studio API key:
+```
+GOOGLE_API_KEY=your_api_key_here
+```
 
-- The repository includes the following files:
-  - **index.html:** Contains the structure of the dashboard, crop prediction, Arduino status, and settings.
-  - **script.js:** Handles chart initialization (using Chart.js), sensor simulation, and crop prediction refresh.
-  - **styles.css:** Provides styling for the dashboard and web interface.
-- Host these files on a web server or Firebase Hosting.
-- The web app listens to changes in the Firebase database, updating charts and alert notifications in real time.
+## Running the Application
 
-## Usage
+1. Ensure your Arduino is connected and running the sensor sketch
 
-1. **Power Up:** Start your Arduino setup with all sensors connected.
-2. **Data Upload:** Sensor readings are continuously uploaded to Firebase.
-3. **Web Dashboard:** Log in via the web interface to view real-time charts, sensor statuses, and crop recommendations.
-4. **Alerts & Configuration:** Adjust alert thresholds and sampling rates via the settings page. Receive alerts if sensor readings fall outside the optimal ranges.
+2. Start the Python application:
+```bash
+python crop_prediction.py
+```
 
-## Team members
-- Kanchan Dutta
-- Ritesh Chatterjee
-- Sumantra Das
-- Subarnak Chakraborty
-- Soumyashree Biswas
-- Shreya Dutta
+3. Access the web interface:
+   - Open `landing.html` in your browser for the landing page
+   - Click "Go to Dashboard" or access `index.html` directly for the main dashboard
+   - The application will be running on `http://localhost:5000`
+
+## Project Structure
+
+```
+smartcrop-ai/
+├── arduino_sensor_sketch.ino  # Arduino code for sensors
+├── crop_prediction.py         # Main Python application
+├── requirements.txt           # Python dependencies
+├── landing.html              # Landing page
+├── index.html                # Dashboard interface
+├── landing-styles.css        # Landing page styles
+├── styles.css                # Dashboard styles
+├── script.js                 # Dashboard JavaScript
+└── .env                      # Environment variables (create this)
+```
+
+## Features in Detail
+
+### 1. Sensor Monitoring
+- Real-time temperature readings
+- Humidity monitoring
+- Soil moisture detection
+- Light intensity measurement
+
+### 2. AI Analysis
+- Environmental condition analysis
+- Crop suitability prediction
+- Personalized recommendations
+- Real-time updates
+
+### 3. Web Dashboard
+- Modern, responsive design
+- Real-time data visualization
+- Easy-to-read recommendations
+- Arduino connection management
+
+## Troubleshooting
+
+1. **Arduino Connection Issues**
+   - Verify the correct COM port is selected
+   - Check sensor connections
+   - Ensure Arduino sketch is properly uploaded
+
+2. **Sensor Reading Errors**
+   - Verify sensor wiring
+   - Check power supply
+   - Ensure proper sensor calibration
+
+3. **Web Interface Issues**
+   - Clear browser cache
+   - Check if Python server is running
+   - Verify port 5000 is available
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Arduino Community
+- Google AI Studio
+- Flask Framework
+- Contributors and testers

@@ -21,7 +21,6 @@
                         <li><a href="#dashboard">Dashboard</a></li>
                         <li><a href="#predictions">Predictions</a></li>
                         <li><a href="#arduino">Arduino</a></li>
-                        <li><a href="#settings">Settings</a></li>
                     </ul>
                 </nav>
             </div>
@@ -142,55 +141,78 @@
                 </div>
             </div>
         </section>
-        
-        <section id="settings" class="settings-section">
-            <h2>AI Model Settings</h2>
-            <p>Configure the AI prediction model</p>
-            
-            <div class="settings-form">
-                <div class="form-group">
-                    <label class="form-label">Region</label>
-                    <select class="form-select" id="region" title="Select Region">
-                        <option value="north">Northern</option>
-                        <option value="central" selected>Central</option>
-                        <option value="south">Southern</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Soil Type</label>
-                    <select class="form-select" id="soil-type" title="Select Soil Type">
-                        <option value="sandy">Sandy</option>
-                        <option value="loamy" selected>Loamy</option>
-                        <option value="clay">Clay</option>
-                        <option value="silt">Silty</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Growing Season</label>
-                    <select class="form-select" id="season" title="Select Growing Season">
-                        <option value="spring">Spring</option>
-                        <option value="summer" selected>Summer</option>
-                        <option value="fall">Fall</option>
-                        <option value="winter">Winter</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Preferred Crops (Optional)</label>
-                    <input type="text" class="form-input" placeholder="e.g., corn, wheat, potato">
-                </div>
-            </div>
-        </section>
     </main>
     
     <footer>
         <div class="container">
-            <p>&copy; 2024 SmartCrop AI - Intelligent Crop Prediction System</p>
+            <p>&copy; 2025 SmartCrop AI - Intelligent Crop Prediction System</p>
         </div>
     </footer>
     
     <script src="script.js"></script>
+    <script>
+    // Function to update predictions
+    function updatePredictions() {
+        fetch('/get_prediction')
+            .then(response => response.json())
+            .then(data => {
+                // Update sensor values
+                document.getElementById('temperature-value').textContent = `${data.sensor_data.temperature.toFixed(1)}°C`;
+                document.getElementById('humidity-value').textContent = `${data.sensor_data.humidity.toFixed(0)}%`;
+                document.getElementById('moisture-value').textContent = `${data.sensor_data.soil_moisture}%`;
+                document.getElementById('light-value').textContent = `${data.sensor_data.light_intensity.toFixed(0)} lux`;
+
+                // Update prediction grid
+                const grid = document.querySelector('.prediction-grid');
+                grid.innerHTML = '';
+                
+                data.recommended_crops.forEach((crop, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'crop-card';
+                    if (index === 0) {
+                        card.classList.add('recommended');
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="crop-icon">${getCropIcon(crop)}</div>
+                        <div class="crop-name">${crop}</div>
+                        <div class="crop-confidence">Recommended</div>
+                    `;
+                    
+                    grid.appendChild(card);
+                });
+
+                // Update environmental analysis
+                const analysis = document.getElementById('environmental-analysis');
+                analysis.innerHTML = `
+                    <p><strong>Current Conditions:</strong> ${data.conditions_summary}</p>
+                    <p><strong>Recommendations:</strong> ${data.explanation}</p>
+                `;
+            })
+            .catch(error => console.error('Error fetching predictions:', error));
+    }
+
+    // Function to get crop icon
+    function getCropIcon(cropName) {
+        const icons = {
+            'Rice': '🌾',
+            'Wheat': '🌾',
+            'Corn': '🌽',
+            'Potato': '🥔',
+            'Tomato': '🍅',
+            'Cotton': '🌿',
+            'Sugarcane': '🎋',
+            'Soybean': '🌱',
+            'Peanut': '🥜'
+        };
+        return icons[cropName] || '🌱';
+    }
+
+    // Update predictions every 5 seconds
+    setInterval(updatePredictions, 5000);
+
+    // Initial update
+    updatePredictions();
+    </script>
 </body>
 </html>
